@@ -6,12 +6,8 @@ import sys
 import logging
 import time
 
-#CONN_STRING = "DRIVER={SQL Server};SERVER=172.16.0.14;DATABASE=Carwale_com;UID=sa;PWD=p@ssw0rd"
-CONN_STRING = "DRIVER={SQL Server};SERVER=172.16.0.14;UID=sa;PWD=p@ssw0rd"
-#;DATABASE=GoogleAnalytics
+CONN_STRING = "DRIVER={FreeTDS};SERVER=host_server_name;UID=username;PWD=password;PORT=1433;"
 
-# logger = logging.getLogger()
-# logger.setLevel(logging.DEBUG)
 
 def get_accounts_ids(service):
     accounts_ids = []
@@ -91,17 +87,6 @@ def main():
 
         print MonthStart, MonthEnd
 
-
-        # today = datetime.date.today()
-        # TodayMonthStart = datetime.date(day=1, month=today.month-i, year=today.year)
-        # MonthEndint = TodayMonthStart-datetime.timedelta(1)
-        # MonthStartint = datetime.date(day=1, month=MonthEndint.month, year=MonthEndint.year)
-        # MonthStart = str(MonthStartint)
-        # MonthEnd = str(MonthEndint)
-        # print MonthStart, MonthEnd
-
-    	# makes = [1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,19,20,22,34,39,40,41]
-        # makes=['Bajaj','Aprilia','BMW','Ducati','Harley Davidson','Hero','Honda','Hyosung','KTM','Mahindra','Suzuki','Yamaha','Yo','TVS','Vespa','Kawasaki','LML','Moto Guzzi','Triumph','Indian','Hero Electric','Benelli','MV Agusta']
         cursor.execute("select Id,Name,replace(replace(lower(Name),' ',''),'-','') as MakeMaskingName from Carwale_com.dbo.CarMakes WHERE New=1 and Name in ('bmw','chevrolet','fiat','ford','honda','hyundai','mahindra','maruti suzuki','mercedes-benz','mitsubishi','skoda','tata','toyota','audi','porsche','volkswagen','nissan','land rover','volvo','jaguar','renault','mini','ssangyong','datsun','isuzu')")#
        	makes = cursor.fetchall()
 

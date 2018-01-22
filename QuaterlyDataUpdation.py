@@ -6,8 +6,7 @@ csvfile = '/home/user/Downloads/MacroData.csv'
 file1 = open(csvfile, 'r')
 reader = csv.reader(file1)
 
-#apt-get install python-mysqldb -> command to install pymysql
-mydb = MySQLdb.connect(host='172.16.1.73', user='prasanjit', passwd='prasan123', db='carwaleprotest')
+mydb = MySQLdb.connect(host=destination_host_name, user=username, passwd=password, db=dbname)
 cursor = mydb.cursor() 
 
 for row in reader:

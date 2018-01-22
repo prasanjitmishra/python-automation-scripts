@@ -12,8 +12,7 @@ import csv
 import subprocess
 import MySQLdb
 
-CONN_STRING = "DRIVER={FreeTDS};SERVER=172.16.0.14;UID=sa;PWD=p@ssw0rd;PORT=1433;"
-#CONN_STRING = "DRIVER={SQL Server};SERVER=172.16.0.14;DATABASE=Carwale_com;UID=sa;PWD=p@ssw0rd"
+CONN_STRING = "DRIVER={FreeTDS};SERVER=host_server_name;UID=username;PWD=password;PORT=1433;"
 
 def get_accounts_ids(service):
     accounts_ids = []
@@ -79,7 +78,7 @@ def get_maskingNames_carwale(cursor,file):
 
 def insert_into_maskingmname_table(masking_names,file):
     try:
-        mydb = MySQLdb.connect(host='172.16.1.73', user='prasanjit', passwd='prasan123', db='carwaledata')
+        mydb = MySQLdb.connect(host=destination_host_name, user=username, passwd=password, db=dbname)
         cursor = mydb.cursor()
         file.write("\n"+"CONNECTED TO CARWALEPRO DB")
     except Exception as ex:
@@ -115,7 +114,7 @@ def connect_MySql_DB(hostname,username,password,database):
         return cursor
 
 def get_GA_data_daily(from_date,to_date,file):
-    mydb = MySQLdb.connect(host='172.16.1.73', user='prasanjit', passwd='prasan123', db='carwaledata')
+    mydb = MySQLdb.connect(host=hostname, user=username, passwd=password, db=database)
     cursor = mydb.cursor()
 
     cursor.execute(""" SELECT ModelId,ModelMaskingName,MakeMaskingName
@@ -149,7 +148,7 @@ def get_GA_data_daily(from_date,to_date,file):
     mydb.close()     
 
 def convert_daily_data_to_csv(csvFile,file,from_date,to_date):
-    mydb = MySQLdb.connect(host='172.16.1.73', user='prasanjit', passwd='prasan123', db='carwaledata')
+    mydb = MySQLdb.connect(host=hostname, user=username, passwd=password, db=database)
     cursor = mydb.cursor()
     
     args = (from_date,to_date,file)
